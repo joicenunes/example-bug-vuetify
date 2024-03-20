@@ -1,39 +1,16 @@
 <template>
   <div id="app">
     <div class="example">
-      <v-text-field
-        v-model="valor"
-        dense
-        outlined
-        placeholder="0,00"
-        prefix="R$"
-        @keypress="tratarValorPressionado"
-        @input="tratarValor"
-      ></v-text-field>
+      <currency-field></currency-field>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import CurrencyField from "./components/CurrencyField.vue";
 export default {
   name: "App",
-  data: () => ({
-    valor: "",
-  }),
-  methods: {
-    tratarValorPressionado: function (event) {
-      let char = String.fromCharCode(event.keyCode);
-      if (/\d/.test(char)) return true;
-      else event.preventDefault();
-    },
-    tratarValor: async function () {
-      this.valor = this.valor.replace(/\D/g, "");
-      if (this.valor.length > 0) {
-        const valorEmDecimais = Number(this.valor) / 100;
-        this.valor = valorEmDecimais.toFixed(2).replace(".", ",");
-      }
-    },
-  },
+  components: { CurrencyField },
 };
 </script>
 
